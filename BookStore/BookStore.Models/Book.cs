@@ -46,17 +46,17 @@ namespace BookStore.Models
 
         public int CategoryId { get; set; }
 
-        [ForeignKey("CategoryID")]
+        [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
 
         public int AuthorId { get; set; }
 
-        [ForeignKey("AuthorID")]
+        [ForeignKey("AuthorId")]
         public virtual Author Author { get; set; }
 
         public int PublisherId { get; set; }
 
-        [ForeignKey("PublisherID")]
+        [ForeignKey("PublisherId")]
         public virtual Publisher Publisher { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; }
