@@ -1,0 +1,14 @@
+﻿@model Book
+
+<div class="col-md-3">
+    <img class="img-fluid img-thumbnail" src="~/Assets/images/@Model.ImageUrl" />
+    <p>
+        <a href="/Book/Details/@Model.BookId">@Model.Title</a>
+    </p>
+    <div class="input-group mb-3">
+        <p class="form-control">@Model.Price.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</p>
+        <div class="input-group-append">
+            <a class="btn btn-outline-primary" href="/Book/ListByAuthor?authorName=@Model.Author.AuthorName">@Model.Author.AuthorName</a>
+        </div>
+    </div>
+</div>

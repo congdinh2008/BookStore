@@ -1,0 +1,63 @@
+﻿<div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
+    <ul class="list-group sticky-top sticky-offset">
+
+        <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+            <small>SEARCH BY: </small>
+        </li>
+        <!-- Search By Category - Menu with submenu -->
+        <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fas fa-swatchbook mr-3"></span>
+                <span class="menu-collapsed">Category</span>
+                <span class="dropdown-toggle ml-auto"></span>
+            </div>
+        </a>
+        <!-- Submenu content -->
+        @{Html.RenderAction("CategorySearch", "Search");}
+
+        <!-- Search By Author - Menu with submenu -->
+        <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fas fa-users mr-3"></span>
+                <span class="menu-collapsed">Author</span>
+                <span class="dropdown-toggle ml-auto"></span>
+            </div>
+        </a>
+        <!-- Submenu content -->
+        @{Html.RenderAction("AuthorSearch", "Search");}
+
+        <!-- Search By Publisher - Menu with submenu -->
+        <a href="#submenu3" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fas fa-building mr-3"></span>
+                <span class="menu-collapsed">Publisher</span>
+                <span class="dropdown-toggle ml-auto"></span>
+            </div>
+        </a>
+        <!-- Submenu content -->
+        @{Html.RenderAction("PublisherSearch", "Search");}
+
+        <!-- Search By Price - Menu with submenu -->
+        <a href="#submenu4" data-toggle="collapse" aria-expanded="false" class="bg-info list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fas fa-dollar-sign mr-3"></span>
+                <span class="menu-collapsed">Price</span>
+                <span class="dropdown-toggle ml-auto"></span>
+            </div>
+        </a>
+        <!-- Submenu content -->
+        @{Html.RenderAction("PriceSearch", "Search");}
+
+        <a href="#" data-toggle="sidebar-colapse" class="bg-info list-group-item list-group-item-action d-flex align-items-center">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span id="collapse-icon" class="fa fa-2x mr-3"></span>
+                <span id="collapse-text" class="menu-collapsed">Collapse</span>
+            </div>
+        </a>
+        <!-- Logo -->
+        <li class="list-group-item logo-separator d-flex justify-content-center">
+            <img src="~/Assets/images/bootstrap-solid.svg" width="30" height="30">
+        </li>
+    </ul>
+    <!-- List Group END-->
+</div>

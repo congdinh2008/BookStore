@@ -13,6 +13,8 @@
 /BookStore/BookStore.Common/bin/Debug
 /BookStore/BookStore.Common/obj/Debug
 /BookStore/.vs
+/BookStore/.vs/BookStore
+/BookStore/.vs/BookStore/v16
 /BookStore/BookStore.Presentation/bin
 /BookStore/packages
 /BookStore/BookStore.Presentation/obj/Debug
