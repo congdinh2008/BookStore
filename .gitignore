@@ -6,3 +6,5 @@
 /BookStore/BookStore.Models/obj/Debug
 /BookStore/BookStore.DataAccessLayer/obj/Debug
 /BookStore/packages/EntityFramework.6.2.0
+/BookStore/BookStore.DataAccessLayer/bin/Debug
+/BookStore/BookStore.Models/bin/Debug
