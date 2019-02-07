@@ -35,10 +35,10 @@ namespace BookStore.Models
         public int Quantity { get; set; }
 
         [Display(Name = "Created Date")]
-        public DateTime CreatedDate { get; set; }
+        public DateTimeOffset CreatedDate { get; set; }
 
         [Display(Name = "Modified Date")]
-        public DateTime ModifiedDate { get; set; }
+        public DateTimeOffset ModifiedDate { get; set; }
 
         [Display(Name = "Is Active?")]
         [DefaultValue(false)]
@@ -59,6 +59,6 @@ namespace BookStore.Models
         [ForeignKey("PublisherID")]
         public virtual Publisher Publisher { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

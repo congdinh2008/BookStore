@@ -12,13 +12,13 @@ namespace BookStore.Models
         public int OrderId { get; set; }
 
         [Display(Name = "Created Date")]
-        public DateTime CreatedDate { get; set; }
+        public DateTimeOffset CreatedDate { get; set; }
 
         [Display(Name = "Modified Date")]
-        public DateTime ModifiedDate { get; set; }
+        public DateTimeOffset ModifiedDate { get; set; }
 
         [Display(Name ="Shipped Date")]
-        public DateTime ShippedDate { get; set; }
+        public DateTimeOffset ShippedDate { get; set; }
 
         [Required(ErrorMessage ="Please enter your full name.")]
         [StringLength(30, ErrorMessage ="The ship name must be between 3 and 30 characters", MinimumLength =3)]

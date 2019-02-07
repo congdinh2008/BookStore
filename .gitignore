@@ -4,3 +4,5 @@
 
 /BookStore/.vs/BookStore/v16/Server/sqlite3
 /BookStore/BookStore.Models/obj/Debug
+/BookStore/BookStore.DataAccessLayer/obj/Debug
+/BookStore/packages/EntityFramework.6.2.0
