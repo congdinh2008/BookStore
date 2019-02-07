@@ -8,3 +8,7 @@
 /BookStore/packages/EntityFramework.6.2.0
 /BookStore/BookStore.DataAccessLayer/bin/Debug
 /BookStore/BookStore.Models/bin/Debug
+/BookStore/BookStore.BusinessLogicLayer/bin/Debug
+/BookStore/BookStore.BusinessLogicLayer/obj/Debug
+/BookStore/BookStore.Common/bin/Debug
+/BookStore/BookStore.Common/obj/Debug
