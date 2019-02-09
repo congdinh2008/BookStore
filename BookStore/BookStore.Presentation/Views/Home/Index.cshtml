@@ -1,0 +1,17 @@
+﻿@model PaginatedList<Book>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+@Html.Partial("_Carousel")
+
+<h3 class="pt-2">Top Books</h3>
+<hr />
+
+<div class="row">
+    @foreach (var book in Model)
+    {
+        @Html.Partial("_BookOverView", book)
+    }
+</div>

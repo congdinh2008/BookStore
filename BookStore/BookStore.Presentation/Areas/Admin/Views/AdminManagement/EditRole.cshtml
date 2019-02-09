@@ -1,0 +1,51 @@
+﻿@model EditRoleViewModel
+
+@{
+    ViewData["Title"] = $"Edit Role {Model.Name}";
+}
+
+<h2>Chỉnh Sửa Vai Trò</h2>
+<hr />
+<div class="row">
+    <div class="col">
+        @using (Html.BeginForm("EditRole", "AdminManagement", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Id, new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m.Id, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Save" />
+                @Html.ActionLink("Cancel", "RoleManagement", "AdminManagement", null, new { @class = "btn btn-secondary" })
+            </div>
+        }
+    </div>
+    <div class="col">
+        <h3>Users with same role:</h3>
+        <ul>
+            @foreach (var user in Model.Users)
+            {
+                <li>
+                    @user
+                </li>
+            }
+        </ul>
+
+        @Html.ActionLink("Add user to role", "AddUserToRole", "AdminManagement", new { roleId = Model.Id }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Delete user from role", "DeleteUserFromRole", "AdminManagement", new { roleId = Model.Id }, new { @class = "btn btn-primary" })
+    </div>
+</div>

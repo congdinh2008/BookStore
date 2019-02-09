@@ -1,0 +1,169 @@
+﻿@model BookDetailViewModel
+
+@{
+    ViewData["Title"] = $"{Model.Book.Title}";
+}
+
+<div class="container product-container">
+    <div class="row product-summary">
+        <div class="col-md-4">
+            <div class="product-image">
+                <img class="img-fluid img-thumbnail" src="~/Assets/images/@Model.Book.ImageUrl"
+                     alt="@Model.Book.Title" />
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="product-cart">
+                <h3>@Model.Book.Title</h3>
+                <hr />
+                <div class="input-group">
+                    <h4>Author: @Model.Book.Author.AuthorName</h4>
+                </div>
+                <div class="input-group">
+                    <h4>Price: @Model.Book.Price.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</h4>
+                </div>
+                <div class="input-group addtocart">
+                    <a href="#" class="addtocart btn btn-outline-primary mr-3"><span class="fas fa-shopping-cart mr-1"></span>Add to cart</a>
+                    <div>
+                        <span class="loader mr-3"><img src="~/Assets/images/ajax-loader.gif" /></span>
+                    </div>
+                    <div>
+                        <span class="ajaxmsg">The book has been added to your cart.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="product-content-box">
+                <h3>Information</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>Title</td>
+                            <td>@Model.Book.Title</td>
+                        </tr>
+                        <tr>
+                            <td>Author</td>
+                            <td>@Model.Book.Author.AuthorName</td>
+                        </tr>
+                        <tr>
+                            <td>Publisher</td>
+                            <td>@Model.Book.Publisher.PublisherName</td>
+                        </tr>
+                        <tr>
+                            <td>Created Date</td>
+                            <td>@Model.Book.CreatedDate.DateTime.ToShortDateString()</td>
+                        </tr>
+                        <tr>
+                            <td>Modified Date</td>
+                            <td>@Model.Book.ModifiedDate.DateTime.ToShortDateString()</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3>Summary</h3>
+                <div>
+                    <p><strong>@Model.Book.Title</strong></p>
+                    <div class="card border rounded">
+                        <div class="card-body">
+                            <p class="description">@Model.Book.Summary</p>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="question-answer-box">
+                    <div class="question-answer-title">
+                        <h3>Review:</h3>
+                        <hr />
+                    </div>
+                    <div class="question-answer-content pt-1">
+                        @foreach (var review in @Model.Book.Reviews)
+                        {
+                            if (string.IsNullOrEmpty(review.Comment))
+                            {
+                                <p>Don't have any review for this book.</p>
+                            }
+                            else
+                            {
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <img src="~/Assets/images/@review.User.Photo" class="img img-rounded img-fluid border border-primary rounded" />
+                                                <p class="text-secondary text-center">@review.CreatedDate.DateTime.ToLongDateString()</p>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <p>
+                                                    <a class="float-left" href="#"><strong>@review.User.UserName</strong></a>
+                                                </p>
+                                                <div class="clearfix"></div>
+                                                <p>@Html.Raw(WebUtility.HtmlDecode(review.Comment))</p>
+                                                <p>
+                                                    <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
+                                                    <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <hr />
+                    <div class="question-answer-form">
+                        <form action="@Url.Action("Details", "Book", new { id=Model.Book.BookId})" method="post" class="form-horizontal" role="form">
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(x => x.Book.BookId)
+                            <div class="form-group">
+                                <label name="Review" class="control-label mt-1">Review</label>
+                                <div>
+                                    <textarea id="ckeditor" name="Review" class="form-control"></textarea>
+                                    @Html.ValidationMessageFor(x => x.Review, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div>
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        <input type="submit" class="btn btn-primary" value="Add Review" />
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" class="btn btn-primary" action="/Account/Login" value="Login to review" />
+                                    }
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(function () {
+            $("a.addtocart").click(function (e) {
+                e.preventDefault();
+                $("span.loader").addClass("ib");
+                var url = "/ShoppingCart/AddToCartPartial";
+                $.get(url, { id: @Model.Book.BookId }, function (data) {
+                    $(".ajaxcart").html(data);
+                }).done(function () {
+                    $("span.loader").removeClass("ib");
+                    $("span.ajaxmsg").addClass("ib");
+                    setTimeout(function () {
+                        $("span.ajaxmsg").fadeOut("fast");
+                        $("span.ajaxmsg").removeClass("ib");
+                        }, 1000);
+                    });
+            });
+        });
+    </script>
+    <script src="~/Assets/js/ckeditor/ckeditor.js"></script>
+    <script src="~/Assets/js/ckeditor/ckeditorconfig.js"></script>
+}

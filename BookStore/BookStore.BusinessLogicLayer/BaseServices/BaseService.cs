@@ -13,90 +13,90 @@ namespace BookStore.BusinessLogicLayer
     {
         #region Fields
 
-        protected readonly IUnitOfWork UnitOfWork;
-        protected readonly IGenericRepository<TEntity> Repository;
+        protected readonly IUnitOfWork _unitOfWork;
+        protected readonly IGenericRepository<TEntity> _repository;
 
         #endregion
 
         public BaseService(IUnitOfWork unitOfWork, IGenericRepository<TEntity> repository)
         {
-            UnitOfWork = unitOfWork;
-            Repository = repository;
+            _unitOfWork = unitOfWork;
+            _repository = repository;
         }
 
         public virtual int Count()
         {
-            return Repository.Count();
+            return _repository.Count();
         }
 
         public virtual async Task<int> CountAsync()
         {
-            return await Repository.CountAsync();
+            return await _repository.CountAsync();
         }
 
         public virtual int Create(TEntity entity)
         {
-            Repository.Add(entity);
-            return UnitOfWork.Commit();
+            _repository.Add(entity);
+            return _unitOfWork.Commit();
         }
 
         public virtual async Task<int> CreateAsync(TEntity entity)
         {
-            Repository.Add(entity);
-            return await UnitOfWork.CommitAsync();
+            _repository.Add(entity);
+            return await _unitOfWork.CommitAsync();
         }
 
         public virtual bool Delete(object id)
         {
-            var entity = Repository.GetById(id);
+            var entity = _repository.GetById(id);
 
             if (entity == null)
             {
                 throw new Exception("Not found entity object with id: " + id);
             }
-            Repository.Delete(entity);
+            _repository.Delete(entity);
 
-            return UnitOfWork.Commit() > 0;
+            return _unitOfWork.Commit() > 0;
         }
 
         public virtual async Task<bool> DeleteAsync(object id)
         {
-            var entity = await Repository.GetByIdAsync(id);
+            var entity = await _repository.GetByIdAsync(id);
 
             if (entity == null)
             {
                 throw new Exception("Not found entity object with id: " + id);
             }
-            Repository.Delete(entity);
+            _repository.Delete(entity);
 
-            return await UnitOfWork.CommitAsync() > 0;
+            return await _unitOfWork.CommitAsync() > 0;
         }
 
         public virtual TEntity Find(Expression<Func<TEntity, bool>> filter)
         {
-            return Repository.Find(filter);
+            return _repository.Find(filter);
         }
 
         public virtual IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> filter)
         {
-            return Repository.FindAll(filter);
+            return _repository.FindAll(filter);
         }
 
         public virtual async Task<IEnumerable<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> filter)
         {
-            return await Repository.FindAllAsync(filter);
+            return await _repository.FindAllAsync(filter);
         }
 
         public virtual async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> filter)
         {
-            return await Repository.FindAsync(filter);
+            return await _repository.FindAsync(filter);
         }
 
         public virtual TEntity FindInclude(
             Expression<Func<TEntity, bool>> filter,
             string includeProperties = "")
         {
-            var query = Repository.FindBy(filter);
+            var query = _repository.FindBy(filter);
 
             foreach (var includeProperty in includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
@@ -108,12 +108,12 @@ namespace BookStore.BusinessLogicLayer
 
         public IEnumerable<TEntity> GetAll()
         {
-            return Repository.GetAll();
+            return _repository.GetAll();
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await Repository.GetAllAsync();
+            return await _repository.GetAllAsync();
         }
 
         public async Task<PaginatedList<TEntity>> GetAsync(
@@ -121,7 +121,7 @@ namespace BookStore.BusinessLogicLayer
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "", int page = 1, int pageSize = 10)
         {
-            var query = Repository.Get(filter: filter, includeProperties: includeProperties);
+            var query = _repository.Get(filter: filter, includeProperties: includeProperties);
             if (orderBy != null)
             {
                 query = orderBy(query);
@@ -132,24 +132,24 @@ namespace BookStore.BusinessLogicLayer
 
         public virtual TEntity GetById(object id)
         {
-            return Repository.GetById(id);
+            return _repository.GetById(id);
         }
 
         public virtual async Task<TEntity> GetByIdAsync(object id)
         {
-            return await Repository.GetByIdAsync(id);
+            return await _repository.GetByIdAsync(id);
         }
 
         public virtual bool Update(TEntity entity)
         {
-            Repository.Update(entity);
-            return UnitOfWork.Commit() > 0;
+            _repository.Update(entity);
+            return _unitOfWork.Commit() > 0;
         }
 
         public virtual async Task<bool> UpdateAsync(TEntity entity)
         {
-            Repository.Update(entity);
-            return await UnitOfWork.CommitAsync() > 0;
+            _repository.Update(entity);
+            return await _unitOfWork.CommitAsync() > 0;
         }
     }
 }

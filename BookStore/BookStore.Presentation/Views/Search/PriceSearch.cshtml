@@ -1,0 +1,12 @@
+﻿@model IEnumerable<PriceSearchItem>
+
+<div id="submenu4" class="collapse sidebar-submenu">
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("ListByPrice", "Book", new { priceLevel=item.ActionValue })" class="list-group-item list-group-item-action bg-info text-white">
+            <span class="fas fa-dollar-sign mr-1"></span>
+            <span class="menu-collapsed">@item.DisplayValue.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</span>
+        </a>
+    }
+</div>
+

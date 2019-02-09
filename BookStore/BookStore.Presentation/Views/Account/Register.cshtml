@@ -1,0 +1,104 @@
+﻿@model RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<h4>Create a new account.</h4>
+<hr />
+
+<form action="Register" method="post" class="row form-horizontal" role="form" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="col">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            <div>
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.BirthDate, new { @class = "control-label" })
+            <div>
+                @Html.TextBoxFor(m => m.BirthDate, new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(m => m.BirthDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.City, new { @class = "control-label" })
+            <div>
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Address, new { @class = "control-label" })
+            <div>
+                @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="Photo">Photo:</label>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="validatedCustomFile" name="photo" onchange="readURL(this)">
+                <label class="custom-file-label" for="validatedCustomFile">Choose an image</label>
+                <img id="FileImage" src="~/Assets/images/avatar-1.png" name="Photo" alt="your image" class="img-thumbnail" width="200" />
+                @Html.ValidationMessageFor(m => m.Photo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+            <div>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "mail" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+            <div>
+                @Html.TextBoxFor(m => m.Password, new { @class = "form-control", type = "password" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+            <div>
+                @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", type = "password" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="control-label">
+                <input type="submit" class="btn btn-primary" value="Register" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script src="~/Assets/js/readurl.js"></script>
+    <script>
+        $(function () {
+            $(document).on('change', ':file', function () {
+                var input = $(this), numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, ''); input.trigger('fileselect', [numFiles, label]);
+            });
+            $(document).ready(function () {
+                $(':file').on('fileselect', function (event, numFiles, label) {
+                    var input = $(this).parents('.custom-file').find('.custom-file-label'),
+                        log = numFiles > 1 ? numFiles + ' files selected' : label; if (input.length) { input.text(log); } else { if (log) alert(log); }
+                });
+            });
+        });
+    </script>
+}

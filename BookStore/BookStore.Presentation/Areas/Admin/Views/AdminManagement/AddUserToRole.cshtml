@@ -1,0 +1,15 @@
+﻿@model UserRoleViewModel
+
+@{
+    ViewData["Title"] = "Add role for user";
+}
+
+<h2>Add role for user</h2>
+<hr />
+@using (Html.BeginForm("AddUserToRole", "AdminManagement"))
+{
+    @Html.HiddenFor(x => x.RoleId)
+    @Html.DropDownListFor(x => x.UserId, new SelectList(Model.Users, "Id", "UserName"), "Please select a user")
+    <input class="btn btn-primary" type="submit" value="Add" />
+    @Html.ActionLink("Cancel", "RoleManagement", "AdminManagement", null, new { @class = "btn btn-primary" })
+}

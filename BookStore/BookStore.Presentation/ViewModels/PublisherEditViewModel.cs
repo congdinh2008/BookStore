@@ -2,7 +2,7 @@
 {
     public class PublisherEditViewModel
     {
-        public string Name { get; set; }
+        public string PublisherName { get; set; }
         public string Description { get; set; }
     }
 }

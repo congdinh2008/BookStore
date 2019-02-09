@@ -1,9 +1,12 @@
 using BookStore.BusinessLogicLayer;
 using BookStore.DataAccessLayer;
 using BookStore.Models;
+using BookStore.Presentation.Areas.Admin.Controllers;
+using BookStore.Presentation.Controllers;
 using System;
 
 using Unity;
+using Unity.Injection;
 
 namespace BookStore.Presentation
 {
@@ -45,9 +48,16 @@ namespace BookStore.Presentation
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-            container.RegisterType<BookStoreDbContext, BookStoreDbContext>();
-            container.RegisterType<IDbFactory, DbFactory>();
-            container.RegisterType<IUnitOfWork, UnitOfWork>();
+
+            container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<ManageController>(new InjectionConstructor());
+            container.RegisterType<AdminManagementController>(new InjectionConstructor());
+
+            container.RegisterSingleton<BookStoreDbContext, BookStoreDbContext>();
+            container.RegisterSingleton<IDbFactory, DbFactory>();
+            container.RegisterSingleton<IUnitOfWork, UnitOfWork>();
+
+            container.RegisterType<ICheckoutService, CheckoutService>();
 
             container.RegisterType<IGenericRepository<Book>, GenericRepository<Book>>();
             container.RegisterType<IBookService, BookService>();

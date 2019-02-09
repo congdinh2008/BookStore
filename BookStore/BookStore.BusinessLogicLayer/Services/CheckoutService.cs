@@ -2,6 +2,7 @@
 using BookStore.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Transactions;
 
 namespace BookStore.BusinessLogicLayer
@@ -24,7 +25,7 @@ namespace BookStore.BusinessLogicLayer
             _orderDetailRepository = orderDetailRepository;
             _bookRepository = bookRepository;
         }
-        public async void CheckoutAsync(Order order, List<OrderDetail> orderDetails)
+        public void Checkout(Order order, List<OrderDetail> orderDetails)
         {
             using (var transaction = new TransactionScope())
             {
@@ -41,7 +42,7 @@ namespace BookStore.BusinessLogicLayer
                     orderDetail.Order = order;
                     _orderDetailRepository.Add(orderDetail);
                 }
-                await _unitOfWork.CommitAsync();
+                _unitOfWork.Commit();
                 transaction.Complete();
             }
         }

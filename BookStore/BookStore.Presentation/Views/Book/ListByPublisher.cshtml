@@ -1,0 +1,13 @@
+﻿@model BooksListByPublisherViewModel
+@{
+    ViewData["Title"] = $"{Model.CurrentPublisher}";
+}
+
+<h2>@ViewBag.CurrentPublisher</h2>
+
+<div class="row">
+    @foreach (Book book in Model.Books)
+    {
+        @Html.Partial("_BookOverview", book)
+    }
+</div>

@@ -1,0 +1,210 @@
+﻿@model List<ShoppingCartItem>
+
+@{
+    ViewBag.Title = "Your Cart";
+    int count = 1;
+}
+
+@if (Model != null)
+{
+    <h2>Your Cart: @Model.Sum(x => x.Quantity) Items</h2>
+
+}
+else
+{
+    <h2>Your Cart: 0 Items</h2>
+}
+<hr />
+
+@if (ViewBag.Message != null)
+{
+    <div class="text-center">
+        <img src="~/Assets/images/cart-empty.png" alt="Don't have any item in your cart. Shopping Now!" />
+        <p>@ViewBag.Message</p>
+        <a href="/Home/Index" class="btn btn-warning">Shopping Now</a>
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th scope="col">Thumbnail</th>
+                <th scope="col">Title</th>
+                <th scope="col">Price</th>
+                <th scope="col"></th>
+                <th scope="col">Quantity</th>
+                <th scope="col"></th>
+                <th scope="col">Subtotal</th>
+                <th scope="col">Action</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img class="img-fluid" style="max-width:200px;" src="~/Assets/images/@item.Book.ImageUrl" alt="@item.Book.Title" />
+                    </td>
+                    <td>
+                        <a href="/Book/Details/@item.Book.BookId">@item.Book.Title</a>
+                    </td>
+                    <td>
+                        @item.Book.Price.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))
+                    </td>
+                    <td><a href="#" class="decrproduct btn btn-outline-warning" data-id="@item.BookId">-</a></td>
+                    <td class="qty@(item.BookId) text-center">
+                        @item.Quantity
+                    </td>
+                    <td><a href="#" class="incrproduct btn btn-outline-warning" data-id="@item.BookId">+</a></td>
+                    <td class="total@(item.BookId)">
+                        @item.Total
+                    </td>
+                    <td>
+                        <a href="#" class="removeproduct" data-id="@item.BookId">Remove</a>
+                    </td>
+                </tr>
+            }
+
+            <tr>
+                <td colspan="6">Total:</td>
+                <td class="grandtotal"><span>@ViewBag.GrandTotal</span></td>
+            </tr>
+        </table>
+    </div>
+
+    if(Request.IsAuthenticated)
+    {
+        <div class="text-center">
+            <a href="/Order/Checkout" class="btn btn-primary">Checkout</a>
+        </div>
+    }
+    else
+    {
+        <div class="text-center">
+            <a href="/Account/Login" class="btn btn-primary">Login for checkout</a>
+        </div>
+    }
+
+}
+
+@section Scripts {
+    <script>
+        $(function () {
+
+            /*
+            * Increment product
+            */
+
+            $("a.incrproduct").click(function (e) {
+                e.preventDefault();
+
+                var bookId = $(this).data("id");
+                var url = "/ShoppingCart/IncrementProduct";
+
+                $.getJSON(url, { bookId: bookId }, function (data) {
+
+                    $("td.qty" + bookId).html(data.qty);
+
+                    var price = data.qty * data.price;
+                    var priceHtml = price.toFixed(2);
+
+                    $("td.total" + bookId).html(priceHtml);
+
+                    var gt = parseFloat($("td.grandtotal span").text());
+                    var grandtotal = (gt + data.price).toFixed(2);
+
+                    $("td.grandtotal span").text(grandtotal);
+                }).done(function (data) {
+                    var url2 = "/ShoppingCart/PaypalPartial";
+
+                    $.get(url2, {}, function (data) {
+                        $('div.paypaldiv').html(data);
+                    });
+                });
+            });
+
+            /*
+            * Decrement product
+            */
+
+            $("a.decrproduct").click(function (e) {
+                e.preventDefault();
+
+                var $this = $(this);
+                var bookId = $(this).data("id");
+                var url = "/ShoppingCart/DecrementProduct";
+
+                $.getJSON(url, { bookId: bookId }, function (data) {
+                    if (data.qty == 0) {
+                        $this.parent().parent().fadeOut("fast", function () {
+                            location.reload();
+                        });
+                    }
+                    else {
+                        $("td.qty" + bookId).html(data.qty);
+
+                        var price = data.qty * data.price;
+                        var priceHtml = price.toFixed(2);
+
+                        $("td.total" + bookId).html(priceHtml);
+
+                        var gt = parseFloat($("td.grandtotal span").text());
+                        var grandtotal = (gt - data.price).toFixed(2);
+
+                        $("td.grandtotal span").text(grandtotal);
+                    }
+
+                }).done(function (data) {
+                    var url2 = "/ShoppingCart/PaypalPartial";
+
+                    $.get(url2, {}, function (data) {
+                        $('div.paypaldiv').html(data);
+                    });
+                });
+            });
+
+            /*
+            * Remove product
+            */
+
+            $("a.removeproduct").click(function (e) {
+                e.preventDefault();
+
+                var $this = $(this);
+                var bookId = $(this).data("id");
+                var url = "/ShoppingCart/RemoveProduct";
+
+                $.get(url, { bookId: bookId }, function (data) {
+                    location.reload();
+                });
+            });
+
+            //////////////////////////////////////////////////////////////
+
+            /*
+            * Place order
+            */
+
+            $("a.placeorder").click(function (e) {
+                e.preventDefault();
+
+                var $this = $(this);
+
+                var url = "/ShoppingCart/PlaceOrder";
+
+                $(".ajaxbg").show();
+
+                $.post(url, {}, function (data) {
+                    $(".ajaxbg span").text("Thank you. You will now be redirected to paypal.");
+                    setTimeout(function () {
+                        $('form input[name="submit"]').click();
+                    }, 2000);
+                });
+            });
+
+            //////////////////////////////////////////////////////////////
+
+        });
+
+    </script>
+
+}

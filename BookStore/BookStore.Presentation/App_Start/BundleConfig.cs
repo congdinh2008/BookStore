@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace BookStore.Presentation.App_Start
+namespace BookStore.Presentation
 {
     public class BundleConfig
     {

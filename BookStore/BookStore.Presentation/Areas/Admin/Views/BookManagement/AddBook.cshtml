@@ -1,0 +1,124 @@
+﻿@model BookEditViewModel
+
+@{
+    ViewData["Title"] = "Add Book | Book Store";
+}
+
+<h2>Add Book:</h2>
+<hr />
+<form action="/Admin/BookManagement/AddBook" method="post" class="row form-horizontal" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div class="col">
+        <div class="form-group">
+            <label class="control-label">Title:</label>
+            <div>
+                <input type="text" class="form-control" name="Title" />
+                @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Summary:</label>
+            <div>
+                <textarea class="form-control" name="Summary" id="ckeditor"></textarea>
+                @Html.ValidationMessageFor(m => m.Summary, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="ImgUrl">Image Thumbnail:</label>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="validatedCustomFile" name="ImgUrl" onchange="readURL(this)">
+                <label class="custom-file-label" for="validatedCustomFile">Choose an image</label>
+                <img id="FileImage" src="~/Assets/images/avatar-1.png" name="ImgUrl" alt="your image" class="img-thumbnail" width="200" />
+                @Html.ValidationMessageFor(m => m.ImgUrl, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="form-group">
+            <label class="control-label">Price:</label>
+            <div>
+                <input type="number" class="form-control" name="Price" min="1" />
+                @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Quantity:</label>
+            <div>
+                <input type="number" class="form-control" name="Quantity" min="1"/>
+                @Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Category:</label>
+            <div class="input-group mb-3">
+                @Html.DropDownListFor(m => m.CategoryId, new SelectList(ViewBag.Categories, "Value", "Text"), "Select a category", new { @class = "form-control", @id = "CateList" })
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#ModalAddCategory" onclick="resetModalCat();">+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Author:</label>
+            <div class="input-group mb-3">
+                @Html.DropDownListFor(m => m.AuthorId, new SelectList(ViewBag.Authors, "Value", "Text"), "Select an author", new { @class = "form-control", @id = "AutList" })
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#ModalAddAuthor" onclick="resetModalAut();">+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Publisher:</label>
+            <div class="input-group mb-3">
+                @Html.DropDownListFor(m => m.PublisherId, new SelectList(ViewBag.Publishers, "Value", "Text"), "Select a publisher", new { @class = "form-control", @id = "PubList" })
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#ModalAddPublisher" onclick="resetModalPub();">+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group form-check">
+            @Html.EditorFor(model => model.IsActive)
+            <label class="form-check-label" for="IsActive">Is Active?</label>
+            @Html.ValidationMessageFor(m => m.IsActive, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Add" />
+            <a class="btn btn-secondary" href="/Admin/BookManagement/Index">Cancel</a>
+        </div>
+    </div>
+</form>
+
+@Html.Partial("_AddCategoryModal")
+@Html.Partial("_AddAuthorModal")
+@Html.Partial("_AddPublisherModal")
+
+@section scripts {
+    <script src="~/Assets/js/ckeditor/ckeditor.js"></script>
+    <script src="~/Assets/js/ckeditor/ckeditorconfig.js"></script>
+    <script src="~/Assets/js/readurl.js"></script>
+    <script src="~/Assets/js/addcategory.js"></script>
+    <script src="~/Assets/js/addauthor.js"></script>
+    <script src="~/Assets/js/addpublisher.js"></script>
+    <script>
+        $(function () {
+            $(document).on('change', ':file', function () {
+                var input = $(this), numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, ''); input.trigger('fileselect', [numFiles, label]);
+            });
+            $(document).ready(function () {
+                $(':file').on('fileselect', function (event, numFiles, label) {
+                    var input = $(this).parents('.custom-file').find('.custom-file-label'),
+                        log = numFiles > 1 ? numFiles + ' files selected' : label; if (input.length) { input.text(log); } else { if (log) alert(log); }
+                });
+            });
+        });
+    </script>
+}

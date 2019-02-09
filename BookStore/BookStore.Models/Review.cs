@@ -30,5 +30,10 @@ namespace BookStore.Models
 
         [ForeignKey("BookId")]
         public virtual Book Book { get; set; }
+
+        public int UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser User { get; set; }
     }
 }

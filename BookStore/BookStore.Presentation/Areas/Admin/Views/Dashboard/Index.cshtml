@@ -1,0 +1,78 @@
+﻿@model DashboardViewModel
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h3 class="pt-2">Dashboard</h3>
+<hr />
+<div class="row">
+    <div class="col-lg-3 col-md-6">
+        <div class="card bg-primary mb-3">
+            <div class="card-header text-white text-center"><i class="fas fa-book mr-3"></i>Total Books: @Model.TotalBooks </div>
+            <ul class="list-group">
+                @foreach (var item in Model.TopBooksByPrice)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="@Url.Action("Details", "Book", new { id = item.BookId, area = "" })" class="text-truncate mr-1" title="@item.Title">@item.Title</a>
+                        <span class="badge badge-primary badge-pill">@item.Price.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</span>
+                    </li>
+                }
+            </ul>
+            <div class="card-footer text-center bg-info">
+                <a href="/Admin/BookManagement" class="text-white">View Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card bg-primary mb-3">
+            <div class="card-header text-white text-center"><i class="fas fa-swatchbook mr-3"></i>Total Categories: @Model.TotalCategories</div>
+            <ul class="list-group">
+                @foreach (var item in Model.TopCategoriesByBook)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="#" class="text-truncate mr-1" title="@item.CategoryName">@item.CategoryName</a>
+                        <span class="badge badge-primary badge-pill">@item.Books.Count()</span>
+                    </li>
+                }
+            </ul>
+            <div class="card-footer text-center bg-info">
+                <a href="/Admin/CategoryManagement" class="text-white">View Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card bg-primary mb-3">
+            <div class="card-header text-white text-center"><i class="fas fa-users mr-3"></i>Total Authors: @Model.TotalAuthors</div>
+            <ul class="list-group">
+                @foreach (var item in Model.TopAuthorsByBook)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="#" class="text-truncate mr-1" title="@item.AuthorName">@item.AuthorName</a>
+                        <span class="badge badge-primary badge-pill">@item.Books.Count()</span>
+                    </li>
+                }
+            </ul>
+            <div class="card-footer text-center bg-info">
+                <a href="/Admin/AuthorManagement" class="text-white">View Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card bg-primary mb-3">
+            <div class="card-header text-white text-center"><i class="fas fa-building mr-3"></i>Total Publishers: @Model.TotalPublishers</div>
+            <ul class="list-group">
+                @foreach (var item in Model.TopPublishersByBook)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="#" class="text-truncate mr-1" title="@item.PublisherName">@item.PublisherName</a>
+                        <span class="badge badge-primary badge-pill">@item.Books.Count()</span>
+                    </li>
+                }
+            </ul>
+            <div class="card-footer text-center bg-info">
+                <a href="/Admin/PublisherManagement" class="text-white">View Details</a>
+            </div>
+        </div>
+    </div>
+</div>

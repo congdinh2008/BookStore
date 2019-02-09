@@ -4,13 +4,13 @@ namespace BookStore.Presentation.ViewModels
 {
     public class BookViewModel
     {
-        public int Id { get; set; }
+        public int BookId { get; set; }
 
         public string Title { get; set; }
 
         public string Summary { get; set; }
 
-        public string ImgUrl { get; set; }
+        public string ImageUrl { get; set; }
 
         public decimal Price { get; set; }
 

@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title | Book Store</title>
+    @Styles.Render("~/Assets/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Bootstrap NavBar -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="@Url.Action("Index", "Dashboard")">
+            <img src="~/Assets/images/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top"
+                 alt="">
+            <span class="menu-collapsed">Book Store</span>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="@Url.Action("Index", "Dashboard")">Home <span class="sr-only">(current)</span></a>
+                </li>
+                @Html.Partial("_ProductNavbar")
+                @Html.Partial("_AdminNavbar")
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("About", "Dashboard")">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Contact", "Dashboard")">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index", "Home", new { area = "" })">Customer Home</a>
+                </li>
+                @Html.Action("CartPartial", "ShoppingCart", new { area = "" })
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+    </nav>
+    <!-- NavBar END -->
+    <!-- Bootstrap row -->
+    <div class="row" id="body-row">
+        @Html.Partial("_SideBarAdmin")
+        <div class="col py-3">
+            @RenderBody()
+            <footer class="sticky-bottom">
+                <p>&copy; 2018 - Book Store</p>
+            </footer>
+        </div>
+        <hr />
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

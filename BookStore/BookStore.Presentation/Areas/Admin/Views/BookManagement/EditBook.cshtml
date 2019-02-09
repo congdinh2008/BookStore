@@ -1,0 +1,102 @@
+﻿ @model BookEditViewModel
+
+@{
+    ViewData["Title"] = "Edit Book | " + Model.Title + " | Book Store";
+}
+<h2>Edit Book:</h2>
+<hr />
+<form action="/Admin/BookManagement/EditBook" method="post" class="row form-horizontal" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.BookId)
+    <div class="col">
+        <div class="form-group">
+            <label class="control-label">Title:</label>
+            <div>
+                <input type="text" class="form-control" name="Title" value="@Model.Title" />
+                @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Summary:</label>
+            <div>
+                <textarea class="form-control" name="Summary" id="ckeditor">@Model.Summary</textarea>
+                @Html.ValidationMessageFor(m => m.Summary, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="ImgUrl">Image Thumbnail:</label>
+            <div class="form-row">
+                <div class="col-6">
+                    <input type="file" class="custom-file-input" id="validatedCustomFile" name="ImgUrl" onchange="readURL(this)">
+                    <label class="custom-file-label" for="validatedCustomFile">Choose an image</label>
+                </div>
+                <div class="col-6">
+                    <img id="FileImage" src="~/Assets/images/@Model.ImageUrl" name="ImgUrl" alt="your image" class="img-thumbnail" width="200" />
+                    <input type="text" class="form-control" name="ImgUrl" value="@Model.ImageUrl" required hidden="hidden" />
+                    @Html.ValidationMessageFor(m => m.ImageUrl, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="form-group">
+            <label class="control-label">Price:</label>
+            <div>
+                <input type="number" class="form-control" name="Price" value="@Model.Price" />
+                @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Quantity:</label>
+            <div>
+                <input type="number" class="form-control" name="Quantity" value="@Model.Quantity" />
+                @Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Category:</label>
+            <div>
+                @Html.DropDownListFor(model => model.CategoryId, (IEnumerable<SelectListItem>)ViewBag.Categories, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Author:</label>
+            <div>
+                @Html.DropDownListFor(model => model.AuthorId, (IEnumerable<SelectListItem>)ViewBag.Authors, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Publisher:</label>
+            <div>
+                @Html.DropDownListFor(model => model.PublisherId, (IEnumerable<SelectListItem>)ViewBag.Publishers, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group form-check">
+            @Html.EditorFor(model => model.IsActive)
+            <label class="form-check-label" for="IsActive">Is Active?</label>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Update" />
+            <a class="btn btn-secondary" href="/Admin/BookManagement/Index">Cancel</a>
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script src="~/Assets/js/ckeditor/ckeditor.js"></script>
+    <script src="~/Assets/js/ckeditor/ckeditorconfig.js"></script>
+    <script src="~/Assets/js/readurl.js"></script>
+    <script src="~/Assets/js/addcategory.js"></script>
+    <script src="~/Assets/js/addauthor.js"></script>
+    <script src="~/Assets/js/addpublisher.js"></script>
+} 

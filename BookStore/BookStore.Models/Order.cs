@@ -26,7 +26,7 @@ namespace BookStore.Models
         public string ShipName { get; set; }
 
         [Required(ErrorMessage = "Please enter your ship address.")]
-        [StringLength(100, ErrorMessage = "The ship address must be between 20 and 100 characters", MinimumLength = 20)]
+        [StringLength(100, ErrorMessage = "The ship address must be between 5 and 100 characters", MinimumLength = 5)]
         [Display(Name = "Ship Address")]
         public string ShipAddress { get; set; }
 

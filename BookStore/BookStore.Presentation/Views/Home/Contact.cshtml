@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Contact";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>Quý khách có nhu cầu liên lạc, trao đổi hoặc đóng góp ý kiến, vui lòng tham khảo các thông tin sau:</p>
+<ul>
+    <li><strong>Liên lạc qua điện thoại: </strong>1900 6035</li>
+    <li>
+        <strong>Liên lạc qua email: </strong>Truy cập <a target="_blank" href="http://hotro.bookstore.vn/">hotro.bookstore.vn</a>
+    </li>
+    <li>
+        <strong>Fanpage của Book Store: </strong><a href="http://facebook.com/bookstore.vn" target="_blank"> http://facebook.com/vivustore.vn</a>
+    </li>
+    <li>
+        <strong>Đối tác có nhu cầu hợp tác quảng cáo hoặc kinh doanh: </strong> <a href="mailto:marketing@bookstore.vn" title="Email đến Book Store">marketing@bookstore.vn</a>
+    </li>
+    <li><strong>Địa chỉ nhận hàng đổi/trả/bảo hành:</strong> Trung tâm xử lý đơn hàng Book Store - P.Cổ Nhuế 2, Q.Bắc Từ Liêm TP. Hà Nội (Tham khảo <a href="http://bookstore.vn/hau-mai" target="_blank">hướng dẫn đổi, trả, bảo hành</a> hoặc liên hệ 1900-6035 để được hướng dẫn trước khi gửi sản phẩm về Book Store)</p></li>
+    <li><strong>Văn phòng: </strong> P.Cổ Nhuế 2, Q.Bắc Từ Liêm TP. Hà Nội</li>
+</ul><br>
+
+<hr />
+
+<form>
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Email address</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Message</label>
+        <textarea class="form-control" id="ckeditor" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Send Message</button>
+</form>
+
+@section scripts {
+    <script src="~/Assets/js/ckeditor/ckeditor.js"></script>
+    <script src="~/Assets/js/ckeditor/ckeditorconfig.js"></script>
+}

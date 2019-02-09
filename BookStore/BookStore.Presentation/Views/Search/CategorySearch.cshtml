@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Category>
+
+<div id="submenu1" class="collapse sidebar-submenu">
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("ListByCategory", "Book", new { category=item.CategoryName })" class="list-group-item list-group-item-action bg-info text-white">
+            <span class="fas fa-swatchbook mr-1"></span>
+            <span class="menu-collapsed">@item.CategoryName</span>
+        </a>
+    }
+</div>

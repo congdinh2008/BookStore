@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Author>
+
+<div id="submenu2" class="collapse sidebar-submenu">
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("ListByAuthor", "Book", new { authorName=item.AuthorName })" class="list-group-item list-group-item-action bg-info text-white">
+            <span class="fas fa-users mr-1"></span>
+            <span class="menu-collapsed">@item.AuthorName</span>
+        </a>
+    }
+</div>
+

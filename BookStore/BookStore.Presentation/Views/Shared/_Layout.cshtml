@@ -31,7 +31,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="@Url.Action("Contact", "Home")">Contact</a>
                 </li>
+                @if (Request.IsAuthenticated && (User.IsInRole("Administrators") || User.IsInRole("Manager") || User.IsInRole("Seller")))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Dashboard", new { area = "Admin" })">Admin Dashboard</a>
+                    </li>
+                }
+                @Html.Action("CartPartial", "ShoppingCart")
             </ul>
+            @Html.Partial("_LoginPartial")
         </div>
     </nav>
     <div class="row" id="body-row">

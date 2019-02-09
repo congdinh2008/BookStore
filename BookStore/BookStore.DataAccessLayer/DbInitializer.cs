@@ -1,8 +1,11 @@
 ﻿using BookStore.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BookStore.DataAccessLayer
 {
@@ -538,12 +541,16 @@ namespace BookStore.DataAccessLayer
 
             #endregion
 
+            Task.Run(async () => { await SeedAsync(context); }).Wait();
+            context.SaveChanges();
+
             #region Add Reviews
 
             var reviews = new List<Review>
             {
                 new Review()
                 {
+                    UserId = 1,
                     BookId = books.Single(b=>b.Title==("How To Win Friends And Influence People")).BookId,
                     Comment = "Comment 01 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -552,6 +559,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 2,
                     BookId = books.Single(b=>b.Title==("How To Stop Worrying And Start Living")).BookId,
                     Comment = "Comment 02 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -560,6 +568,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 3,
                     BookId = books.Single(b=>b.Title==("Harry Potter And The Sorcerer's Stone")).BookId,
                     Comment = "Comment 03 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -568,6 +577,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 4,
                     BookId = books.Single(b=>b.Title==("Harry Potter And The Chamber Of Secrets")).BookId,
                     Comment = "Comment 04 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -576,6 +586,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 1,
                     BookId = books.Single(b=>b.Title==("Harry Potter And The Prisoner Of Azkaban")).BookId,
                     Comment = "Comment 05 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -584,6 +595,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 2,
                     BookId = books.Single(b=>b.Title==("Harry Potter And The Goblet Of Fire")).BookId,
                     Comment = "Comment 06 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -592,6 +604,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 3,
                     BookId = books.Single(b=>b.Title==("Harry Potter And The Order Of The Phoenix")).BookId,
                     Comment = "Comment 07 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -600,6 +613,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 4,
                     BookId = books.Single(b=>b.Title==("Harry Potter And The Half-Blood Prince")).BookId,
                     Comment = "Comment 08 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -608,6 +622,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 1,
                     BookId = books.Single(b=>b.Title==("Đại Tuyển Tập - Doraemon Truyện Ngắn - Tập 5")).BookId,
                     Comment = "Comment 09 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -616,6 +631,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 2,
                     BookId = books.Single(b=>b.Title==("Thám Tử Lừng Danh Conan Tập 1")).BookId,
                     Comment = "Comment 10 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -624,6 +640,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 3,
                     BookId = books.Single(b=>b.Title==("One Piece - Tập 1")).BookId,
                     Comment = "Comment 01 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -632,6 +649,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 4,
                     BookId = books.Single(b=>b.Title==("One Piece - Tập 2")).BookId,
                     Comment = "Comment 02 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -640,6 +658,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 1,
                     BookId = books.Single(b=>b.Title==("One Piece - Tập 3")).BookId,
                     Comment = "Comment 03 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -648,6 +667,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 2,
                     BookId = books.Single(b=>b.Title==("One Piece - Tập 4")).BookId,
                     Comment = "Comment 04 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -656,6 +676,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 3,
                     BookId = books.Single(b=>b.Title==("Thám Tử Lừng Danh Conan Tập 2")).BookId,
                     Comment = "Comment 05 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -664,6 +685,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 4,
                     BookId = books.Single(b=>b.Title==("Thám Tử Lừng Danh Conan Tập 3")).BookId,
                     Comment = "Comment 06 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -672,6 +694,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 1,
                     BookId = books.Single(b=>b.Title==("Thám Tử Lừng Danh Conan Tập 4")).BookId,
                     Comment = "Comment 07 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -680,6 +703,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 2,
                     BookId = books.Single(b=>b.Title==("Thám Tử Lừng Danh Conan Tập 5")).BookId,
                     Comment = "Comment 08 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -688,6 +712,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 3,
                     BookId = books.Single(b=>b.Title==("Đại Tuyển Tập - Doraemon Truyện Ngắn - Tập 4")).BookId,
                     Comment = "Comment 09 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -696,6 +721,7 @@ namespace BookStore.DataAccessLayer
                 },
                 new Review()
                 {
+                    UserId = 4,
                     BookId = books.Single(b=>b.Title==("Đại Tuyển Tập - Doraemon Truyện Ngắn - Tập 3")).BookId,
                     Comment = "Comment 10 Thám Tử Lừng Danh Conan là một bộ truyện tranh trinh thám Nhật Bản của tác giả Aoyama Gõshõ",
                     CreatedDate = new DateTimeOffset(2018,08,25,0,0,0, new TimeSpan()),
@@ -708,161 +734,149 @@ namespace BookStore.DataAccessLayer
 
             #endregion
 
-            #region Roles
-            //var roles = new List<ApplicationRole>
-            //{
-            //    new ApplicationRole()
-            //    {
-            //        Name = "Administrators"
-            //    },
-            //    new ApplicationRole()
-            //    {
-            //        Name = "Manager"
-            //    },
-            //    new ApplicationRole()
-            //    {
-            //        Name = "Seller"
-            //    }
-            //};
-            //roles.ForEach(s => context.Roles.Add(s));
-            //context.SaveChanges();
-
-            #endregion
-
-            #region Users
-            //var passwordHasher = new PasswordHasher();
-            //var users = new List<ApplicationUser>
-            //{
-
-            //    new ApplicationUser()
-            //    {
-            //        Name = "Cong Dinh",
-            //        BirthDate = new DateTime(2004,07,26),
-            //        City = "Nam Dinh",
-            //        Address = "Y Yen",
-            //        Photo = "avatar-1.png",
-            //        Email = "cong@domain.com",
-            //        UserName = "cong@domain.com",
-            //        PasswordHash = passwordHasher.HashPassword("Abc@1234"),
-            //        EmailConfirmed = true,
-            //        PhoneNumber = "0944551356",
-            //        PhoneNumberConfirmed = true,
-            //        LockoutEnabled=true,
-            //        AccessFailedCount=0,
-            //        TwoFactorEnabled = false
-            //    },
-            //    new ApplicationUser()
-            //    {
-            //        Name = "Van Nguyen",
-            //        BirthDate = new DateTime(2004,07,26),
-            //        City = "Thai Binh",
-            //        Address = "Hung Ha",
-            //        Photo = "avatar-2.png",
-            //        Email = "van@domain.com",
-            //        UserName = "van@domain.com",
-            //        PasswordHash = passwordHasher.HashPassword("Abc@1234"),
-            //        EmailConfirmed = true,
-            //        PhoneNumber = "0944551356",
-            //        PhoneNumberConfirmed = true,
-            //        LockoutEnabled=true,
-            //        AccessFailedCount=0,
-            //        TwoFactorEnabled = false
-            //    },
-            //    new ApplicationUser()
-            //    {
-            //        Name = "Quynh Dinh",
-            //        BirthDate = new DateTime(2004,07,26),
-            //        City = "Can Tho",
-            //        Address = "Ninh Kieu",
-            //        Photo = "avatar-3.png",
-            //        Email = "quynh@domain.com",
-            //        UserName = "quynh@domain.com",
-            //        PasswordHash = passwordHasher.HashPassword("Abc@1234"),
-            //        EmailConfirmed = true,
-            //        PhoneNumber = "0944551356",
-            //        PhoneNumberConfirmed = true,
-            //        LockoutEnabled=true,
-            //        AccessFailedCount=0,
-            //        TwoFactorEnabled = false
-            //    },
-            //    new ApplicationUser()
-            //    {
-            //        Name = "Anh Hien",
-            //        BirthDate = new DateTime(2004,07,26),
-            //        City = "Ha Noi",
-            //        Address = "Thach That",
-            //        Photo = "avatar-4.png",
-            //        Email = "hien@domain.com",
-            //        UserName = "hien@domain.com",
-            //        PasswordHash = passwordHasher.HashPassword("Abc@1234"),
-            //        EmailConfirmed = true,
-            //        PhoneNumber = "0944551356",
-            //        PhoneNumberConfirmed = true,
-            //        LockoutEnabled=true,
-            //        AccessFailedCount=0,
-            //        TwoFactorEnabled = false
-            //    },
-            //};
-            //users.ForEach(s => context.Users.Add(s));
-            //context.SaveChanges();
-            #endregion
-
-            #region Employees
-            //var employees = new List<Employee>
-            //{
-
-            //    new Employee()
-            //    {
-            //        Name = "Cong Dinh",
-            //        BirthDate = new DateTime(2004,07,26),
-            //        City = "Nam Dinh",
-            //        Address = "Y Yen",
-            //        Photo = "avatar-5.png",
-            //        Email = "cong@domain.com",
-            //        PhoneNumber = "0944551356",
-            //        UserName = "cong@domain.com",
-            //        Password = "Abc@1234"
-            //    },
-            //    new Employee()
-            //    {
-            //        Name = "Van Nguyen",
-            //        BirthDate = new DateTime(2004,07,26),
-            //        City = "Thai Binh",
-            //        Address = "Hung Ha",
-            //        Photo = "avatar-6.png",
-            //        Email = "van@domain.com",
-            //        PhoneNumber = "0944551356",
-            //        UserName = "van@domain.com",
-            //        Password = "Abc@1234"
-            //    },
-            //    new Employee()
-            //    {
-            //        Name = "Quynh Dinh",
-            //        BirthDate = new DateTime(2004,07,26),
-            //        City = "Can Tho",
-            //        Address = "Ninh Kieu",
-            //        Photo = "avatar-7.png",
-            //        Email = "quynh@domain.com",
-            //        PhoneNumber = "0944551356",
-            //        UserName = "quynh@domain.com",
-            //        Password = "Abc@1234"
-            //    },
-            //    new Employee()
-            //    {
-            //        Name = "Hien Nguyen",
-            //        BirthDate = new DateTime(2004,07,26),
-            //        City = "Ha Noi",
-            //        Address = "Thach That",
-            //        Photo = "avatar-8.png",
-            //        Email = "hien@domain.com",
-            //        PhoneNumber = "0944551356",
-            //        UserName = "hien@domain.com",
-            //        Password = "Abc@1234"
-            //    },
-            //};
-            //employees.ForEach(s => context.Employees.Add(s));
-            //context.SaveChanges();
-            #endregion
+            
         }
+
+        #region Add User and Role Identity
+
+        private async Task SeedAsync(BookStoreDbContext context)
+        {
+
+
+            var userManager = new UserManager<ApplicationUser, int>(new UserStore<ApplicationUser, ApplicationRole, int,
+                CustomUserLogin, CustomUserRole, CustomUserClaim>(context));
+            var roleManager = new RoleManager<ApplicationRole, int>(new RoleStore<ApplicationRole, int, CustomUserRole>(context));
+            var passwordHasher = new Microsoft.AspNet.Identity.PasswordHasher();
+
+            if (!roleManager.Roles.Any())
+            {
+                await roleManager.CreateAsync(new ApplicationRole { Name = "Administrators" });
+                await roleManager.CreateAsync(new ApplicationRole { Name = "Manager" });
+                await roleManager.CreateAsync(new ApplicationRole { Name = "Seller" });
+            }
+
+            if (!userManager.Users.Any(u => u.UserName == "admin@domain.com"))
+            {
+                var user = new ApplicationUser
+                {
+                    Name = "Admin",
+                    BirthDate = new DateTime(2004, 07, 26),
+                    City = "Ha Noi",
+                    Address = "Thach That",
+                    Photo = "avatar-4.png",
+                    Email = "admin@domain.com",
+                    UserName = "admin@domain.com",
+                    PasswordHash = passwordHasher.HashPassword("Abc@1234"),
+                    EmailConfirmed = true,
+                    PhoneNumber = "0944551356",
+                    PhoneNumberConfirmed = true,
+                    LockoutEnabled = true,
+                    AccessFailedCount = 0,
+                    TwoFactorEnabled = false,
+                    SecurityStamp = Guid.NewGuid().ToString("D")
+                };
+
+                await userManager.CreateAsync(user, "Abc@1234");
+                await userManager.AddToRoleAsync(user.Id, "Administrators");
+                await userManager.AddToRoleAsync(user.Id, "Manager");
+                await userManager.AddToRoleAsync(user.Id, "Seller");
+            }
+
+            if (!userManager.Users.Any(u => u.UserName == "cong@domain.com"))
+            {
+                var user = new ApplicationUser
+                {
+                    Name = "Cong Dinh",
+                    BirthDate = new DateTime(2004, 07, 26),
+                    City = "Nam Dinh",
+                    Address = "Y Yen",
+                    Photo = "avatar-1.png",
+                    Email = "cong@domain.com",
+                    UserName = "cong@domain.com",
+                    EmailConfirmed = true,
+                    PhoneNumber = "0944551356",
+                    PhoneNumberConfirmed = true,
+                    LockoutEnabled = true,
+                    AccessFailedCount = 0,
+                    TwoFactorEnabled = false,
+                    SecurityStamp = Guid.NewGuid().ToString("D")
+                };
+
+                await userManager.CreateAsync(user, "Abc@1234");
+                await userManager.AddToRoleAsync(user.Id, "Administrators");
+            }
+
+            if (!userManager.Users.Any(u => u.UserName == "van@domain.com"))
+            {
+                var user = new ApplicationUser
+                {
+                    Name = "Van Nguyen",
+                    BirthDate = new DateTime(2004, 07, 26),
+                    City = "Thai Binh",
+                    Address = "Hung Ha",
+                    Photo = "avatar-2.png",
+                    Email = "van@domain.com",
+                    UserName = "van@domain.com",
+                    EmailConfirmed = true,
+                    PhoneNumber = "0944551356",
+                    PhoneNumberConfirmed = true,
+                    LockoutEnabled = true,
+                    AccessFailedCount = 0,
+                    TwoFactorEnabled = false,
+                    SecurityStamp = Guid.NewGuid().ToString("D")
+                };
+
+                await userManager.CreateAsync(user, "Abc@1234");
+                await userManager.AddToRoleAsync(user.Id, "Manager");
+            }
+
+            if (!userManager.Users.Any(u => u.UserName == "quynh@domain.com"))
+            {
+                var user = new ApplicationUser
+                {
+                    Name = "Quynh Dinh",
+                    BirthDate = new DateTime(2004, 07, 26),
+                    City = "Can Tho",
+                    Address = "Ninh Kieu",
+                    Photo = "avatar-3.png",
+                    Email = "quynh@domain.com",
+                    UserName = "quynh@domain.com",
+                    EmailConfirmed = true,
+                    PhoneNumber = "0944551356",
+                    PhoneNumberConfirmed = true,
+                    LockoutEnabled = true,
+                    AccessFailedCount = 0,
+                    TwoFactorEnabled = false,
+                    SecurityStamp = Guid.NewGuid().ToString("D")
+                };
+
+                await userManager.CreateAsync(user, "Abc@1234");
+                await userManager.AddToRoleAsync(user.Id, "Seller");
+            }
+
+            if (!userManager.Users.Any(u => u.UserName == "customer@domain.com"))
+            {
+                var user = new ApplicationUser
+                {
+                    Name = "Customer 01",
+                    BirthDate = new DateTime(2004, 07, 26),
+                    City = "Can Tho",
+                    Address = "Ninh Kieu",
+                    Photo = "avatar-5.png",
+                    Email = "customer@domain.com",
+                    UserName = "customer@domain.com",
+                    EmailConfirmed = true,
+                    PhoneNumber = "0944551356",
+                    PhoneNumberConfirmed = true,
+                    LockoutEnabled = true,
+                    AccessFailedCount = 0,
+                    TwoFactorEnabled = false,
+                    SecurityStamp = Guid.NewGuid().ToString("D")
+                };
+
+                await userManager.CreateAsync(user, "Abc@1234");
+            }
+        }
+        #endregion
     }
 }

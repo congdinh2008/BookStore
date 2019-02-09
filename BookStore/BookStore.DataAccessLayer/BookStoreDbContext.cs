@@ -1,12 +1,19 @@
 ﻿using BookStore.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
 namespace BookStore.DataAccessLayer
 {
-    public class BookStoreDbContext : DbContext
+    public class BookStoreDbContext : IdentityDbContext<ApplicationUser, ApplicationRole,
+        int, CustomUserLogin, CustomUserRole, CustomUserClaim>
     {
         public BookStoreDbContext() : base("BookStoreDb")
         {
+        }
+
+        public static BookStoreDbContext Create()
+        {
+            return new BookStoreDbContext();
         }
 
         public DbSet<Category> Categories { get; set; }

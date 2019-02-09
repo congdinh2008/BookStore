@@ -1,0 +1,16 @@
+﻿@model ClaimsManagementViewModel
+
+@{
+    ViewData["Title"] = "Manage Claims For User";
+}
+
+<h2>Manage Claims For User</h2>
+<hr />
+
+@using (Html.BeginForm("ManageClaimsForUser", "AdminManagement"))
+{
+    @Html.HiddenFor(x => x.UserId)
+    @Html.DropDownListFor(x => x.ClaimId, new SelectList(Model.AllClaimsList), "Select Claim")
+    <input class="btn btn-primary" type="submit" value="Add Claims For User" />
+    @Html.ActionLink("Cancel", "EditUser", "AdminManagement", new { id= Model.UserId }, new { @class = "btn btn-secondary" })
+}

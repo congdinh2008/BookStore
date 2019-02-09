@@ -1,0 +1,38 @@
+﻿@model AuthorEditViewModel
+@{
+    ViewBag.Title = "Add Author";
+}
+<h2>Add Author</h2>
+<hr />
+<form action="/Admin/AuthorManagement/AddAuthor" method="post" class="row form-horizontal">
+    @Html.AntiForgeryToken()
+    <div class="col">
+        <div class="form-group">
+            <label name="Name" class="control-label">Author Name:</label>
+            <div>
+                <input type="text" name="AuthorName" class="form-control" value="@Model.AuthorName" />
+                @Html.ValidationMessageFor(m => m.AuthorName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="form-group">
+            <label class="control-label">Description:</label>
+            <div>
+                <textarea class="form-control" name="Description" id="ckeditor"></textarea>
+                @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Add" />
+            <a href="/Admin/AuthorManagement" class="btn btn-secondary">Cancel</a>
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script src="~/Assets/js/ckeditor/ckeditor.js"></script>
+    <script src="~/Assets/js/ckeditor/ckeditorconfig.js"></script>
+} 

@@ -1,0 +1,48 @@
+﻿@model AuthorEditViewModel
+@{
+    ViewBag.Title = "Edit Author";
+}
+<script src="~/Assets/js/ckeditor/ckeditor.js"></script>
+<h2>Edit Author</h2>
+<hr />
+
+<form action="/Admin/AuthorManagement/EditAuthor" method="post" class="row form-horizontal">
+    @Html.AntiForgeryToken()
+    <div class="col">
+        <div class="form-group">
+            <label name="AuthorId" class="control-label">Author Id:</label>
+            <div>
+                <input type="text" name="AuthorId" class="form-control" readonly="readonly" value="@Model.AuthorId" />
+                @Html.ValidationMessageFor(m => m.AuthorId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label name="Description" class="control-label">Author Name:</label>
+            <div>
+                <input type="text" name="AuthorName" class="form-control" value="@Model.AuthorName" />
+                @Html.ValidationMessageFor(m => m.AuthorName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="form-group">
+            <label class="control-label">Description:</label>
+            <div>
+                <textarea class="form-control" name="Description" id="ckeditor">@Model.Description</textarea>
+                @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Update" />
+            <a href="/Admin/AuthorManagement" class="btn btn-secondary">Cancel</a>
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script src="~/Assets/js/ckeditor/ckeditor.js"></script>
+    <script src="~/Assets/js/ckeditor/ckeditorconfig.js"></script>
+} 

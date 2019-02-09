@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ApplicationUser>
+
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<h2>User Management</h2>
+<hr />
+<a href="@Url.Action("AddUser", "AdminManagement")" class="btn btn-primary">Add User</a>
+<hr />
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">Don't have any user yet</td></tr>
+}
+else
+{
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>Name</th>
+            <th>Birth Day</th>
+            <th>City</th>
+            <th>Email</th>
+            <th>Manage</th>
+        </tr>
+
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Name</td>
+                <td>@user.BirthDate.Date.ToShortDateString()</td>
+                <td>@user.City</td>
+                <td>@user.Email</td>
+                <td>
+                    <form action="@Url.Action("DeleteUser","AdminManagement", new { id=user.Id })" method="post">
+                        <a href="@Url.Action("EditUser","AdminManagement", new { id=user.Id })" class="btn btn-primary">Edit</a>
+                        <button type="submit" onclick="return confirm('Are you sure to delete this user?');" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}

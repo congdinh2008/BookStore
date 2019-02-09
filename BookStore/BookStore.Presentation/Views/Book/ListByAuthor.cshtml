@@ -1,0 +1,13 @@
+﻿@model BooksListByAuthorViewModel
+@{
+    ViewData["Title"] = $"{Model.CurrentAuthor} | ViVuStore.vn";
+}
+
+<h2>@ViewBag.CurrentAuthor</h2>
+
+<div class="row">
+    @foreach (Book book in Model.Books)
+    {
+    @Html.Partial("_BookOverview", book)
+    }
+</div>

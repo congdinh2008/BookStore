@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BookStore.Models;
+using BookStore.Presentation.Areas.Admin.ViewModels;
 using BookStore.Presentation.ViewModels;
 
 namespace BookStore

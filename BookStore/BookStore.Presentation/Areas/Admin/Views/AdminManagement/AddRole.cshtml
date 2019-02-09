@@ -1,0 +1,27 @@
+﻿@model AddRoleViewModel
+
+@{
+    ViewData["Title"] = "Add new role";
+}
+<h2>Create new role</h2>
+<hr />
+
+@using (Html.BeginForm("AddRole", "AdminManagement", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Add Role" />
+            @Html.ActionLink("Cancel", "RoleManagement", "AdminManagement", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+}

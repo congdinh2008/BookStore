@@ -1,0 +1,15 @@
+﻿@model UserRoleViewModel
+
+@{
+    ViewData["Title"] = "Delete user from role";
+}
+
+<h2>Delete role of user</h2>
+<hr />
+@using (Html.BeginForm("DeleteUserFromRole", "AdminManagement"))
+{
+    @Html.HiddenFor(x => x.RoleId)
+    @Html.DropDownListFor(x => x.UserId, new SelectList(Model.Users, "Id", "UserName"), "Select an user")
+    <input class="btn btn-primary" type="submit" value="Delete" />
+    @Html.ActionLink("Cancel", "RoleManagement", "AdminManagement", null, new { @class = "btn btn-primary" })
+}

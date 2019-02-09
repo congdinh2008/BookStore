@@ -1,0 +1,8 @@
+﻿@model ShoppingCartItem
+
+<li class="ajaxcart nav-item">
+    <a class="nav-link border border-white rounded" href="@Url.Action("Index", "ShoppingCart")">
+        <span class="fas fa-shopping-cart"></span>
+        <span id="cart-status">@Model.Quantity item(s) - @Model.Price.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</span>
+    </a>
+</li>

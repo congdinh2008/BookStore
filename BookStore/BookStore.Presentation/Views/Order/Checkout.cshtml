@@ -1,0 +1,53 @@
+﻿@model OrderViewModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h3>Please Enter Ship Address</h3>
+<hr />
+<form class="row form-horizontal" action="/Order/Checkout" method="post" role="form">
+    <div class="col-md-6 mb-3">
+        <div class="form-group">
+            <label asp-for="ShipName">Full Name:</label>
+            <input name="ShipName" type="text" class="form-control" id="ShipName" placeholder="" value="@Model.ShipName" required>
+            <span class="text-danger" asp-validation-for="Name"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="PhoneNumber">Phone Number:</label>
+            <input name="PhoneNumber" type="tel" class="form-control" id="phoneNumber" placeholder="0123456789" value="@Model.PhoneNumber" required>
+            <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" class="form-control" name="ShipAddress" id="ShipAddress" placeholder="1234 Main St" value="@Model.ShipAddress" required>
+            <span class="text-danger" asp-validation-for="ShipAddress"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="City">City:</label>
+            <input type="text" name="ShipCity" class="form-control" id="city" value="@Model.ShipCity" required>
+            <span class="text-danger" asp-validation-for="ShipCity"></span>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Complete Checkout</button>
+            <a class="btn btn-primary" href="/ShoppingCart/Index">Cancel Checkout</a>
+            <a class="btn btn-primary" href="/Home/Index">Continue Shopping</a>
+        </div>
+    </div>
+    @*<div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="same-address">
+            <label class="custom-control-label" for="same-address">Địa chỉ nhận hàng trùng với địa chỉ trên hóa đơn</label>
+        </div>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="save-info">
+            <label class="custom-control-label" for="save-info">Save info for next order</label>
+        </div>*@
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
